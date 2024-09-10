@@ -11,7 +11,7 @@ Installation of OKD using Proxmox and pfSense
 - Rocky Linux (can use any linux)
 - pfSense
 # Required Hosts
-7 Hosts will be used. You can add the ISOs to the CD drive, but do not power them on yet.
+8 Hosts will be used. You can add the ISOs to the CD drive, but do not power them on yet.
 - pfSense
 	- OS: pfSense
 	- CPU: >=1 core
@@ -25,6 +25,13 @@ Installation of OKD using Proxmox and pfSense
 	- CPU: >=1 core
 	- RAM: 4GB
 	- Storage: 30GB
+	- NIC:
+		- net0 vlan 99
+- okd-bootstrap-01
+	- OS: Fedora CoreOS
+	- CPU: 4 cores
+	- Memory: 16GB
+	- Storage: 100GB
 	- NIC:
 		- net0 vlan 99
 - okd-control-plane-01
@@ -65,4 +72,21 @@ Installation of OKD using Proxmox and pfSense
 # pfSense Configuration
 ## DHCP
 ## DNS
+- You will need 4 sets of records:
+	- Forward and Reverse records for each host in your cluster
+ 	- Forward and Reverse records for your cluster's API server virtual IP (provisioned by HAProxy on pfSense)
+  	- Forward record for your cluster's apps
+You will need to choose a domain name. I suggest `pve.lan` (Proxmox Virtual Environment).
+You will need a cluster name. I suggest `okd`.
+You will need DNS A and PTR records for each host. Combining your domain name and cluster name with the hostname of `okd-control-01`, you might get `okd-control-01.okd.pve.lan` as the FQDN. 
 ## Load Balancer (HAProxy)
+- You will have 4 HAProxy Frontends on your OKD virtual IP:
+	- API server on 6443
+ 	- machine config server on 22623
+  	- ingress router on 443
+  	- ingress router on 80
+- You will have 4 respective HAProxy Backends:
+	- API server on 6443 for your 3 control plane nodes + bootstrap
+ 	- machine config server on 22623 for your 3 control plane nodes + bootstrap
+  	- ingress router on 443 for your 2 workers
+  	- ingress router on 80 for 2 workers
