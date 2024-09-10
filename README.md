@@ -11,7 +11,7 @@ Installation of OKD using Proxmox and pfSense
 - Rocky Linux (can use any linux)
 - pfSense
 # Required Hosts
-7 Hosts will be used.
+7 Hosts will be used. You can add the ISOs to the CD drive, but do not power them on yet.
 - pfSense
 	- OS: pfSense
 	- CPU: >=1 core
