@@ -71,6 +71,7 @@ Installation of OKD using Proxmox and pfSense
 		- net0 vlan 99
 # pfSense Configuration
 ## DHCP
+You will need to allocate IPs for each node. Take the hostname, the MAC address of the host's NIC, and a unique IP address and create a DHCP static mapping. You should have 7, one for each cluster host. Your cluster hosts will inherit the names you choose here.
 ## DNS
 - You will need 4 sets of records:
 	- Forward and Reverse records for each host in your cluster
