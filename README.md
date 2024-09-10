@@ -4,7 +4,8 @@ Installation of OKD using Proxmox and pfSense
 - Your Proxmox host has >=69GB of memory
 - Your Proxmox host has ~20 cores (feel free to oversubscribe)
 - Your Proxmox host has >=538GB of storage for hosts
-- Your goal is the smallest OpenShift cluster w/separate Control Plane
+- Your goal is the smallest OKD cluster w/separate Control Plane
+- Your OKD cluster will be entirely on vlan 99 (feel free to choose another)
 # Prerequisite ISOs
 - Fedora CoreOS
 - Rocky Linux (can use any linux)
